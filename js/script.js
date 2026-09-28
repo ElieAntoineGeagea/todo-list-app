@@ -5,6 +5,9 @@ const errorMessage = document.getElementById("error-message");
 
 let tasks = [];
 
+loadTasks();
+renderTasks();
+
 taskForm.addEventListener("submit", function(event) {
     event.preventDefault();
     addTask();
@@ -27,6 +30,8 @@ function addTask() {
     };
 
     tasks.push(newTask);
+
+    saveTasks();
 
     taskInput.value = "";
 
@@ -93,6 +98,7 @@ function toggleTask(id) {
         return task;
     });
 
+    saveTasks();
     renderTasks();
 }
 
@@ -101,5 +107,18 @@ function deleteTask(id) {
         return task.id !== id;
     });
 
+    saveTasks();
     renderTasks();
+}
+
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function loadTasks() {
+    const savedTasks = localStorage.getItem("tasks");
+
+    if (savedTasks !== null) {
+        tasks = JSON.parse(savedTasks);
+    }
 }
