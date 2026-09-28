@@ -60,7 +60,6 @@ label {
 
 input {
     flex: 1;
-
     padding: 0.8rem;
 
     border: 1px solid #444;
@@ -87,7 +86,6 @@ button {
     color: #121212;
 
     font-weight: bold;
-
     cursor: pointer;
 }
 
@@ -111,14 +109,58 @@ button:hover {
     margin: 0;
 }
 
+#task-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+
+    background-color: #2a2a2a;
+    border-radius: 0.5rem;
+}
+
+.completed span {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.task-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.delete-button {
+    background-color: #e53935;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #f44336;
+}
+
 @media (max-width: 500px) {
 
     .input-group {
         flex-direction: column;
     }
 
-    button {
+    .input-group button {
         width: 100%;
     }
 
+    #task-list li {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .task-buttons {
+        width: 100%;
+    }
+
+    .task-buttons button {
+        flex: 1;
+    }
 }
