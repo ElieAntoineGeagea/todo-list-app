@@ -39,8 +39,67 @@ function renderTasks() {
     tasks.forEach(function(task) {
         const listItem = document.createElement("li");
 
-        listItem.textContent = task.text;
+        if (task.completed) {
+            listItem.classList.add("completed");
+        }
+
+        const taskText = document.createElement("span");
+        taskText.textContent = task.text;
+
+        const buttonGroup = document.createElement("div");
+        buttonGroup.classList.add("task-buttons");
+
+        const completeButton = document.createElement("button");
+        completeButton.type = "button";
+
+        if (task.completed) {
+            completeButton.textContent = "Undo";
+        } else {
+            completeButton.textContent = "Complete";
+        }
+
+        completeButton.addEventListener("click", function() {
+            toggleTask(task.id);
+        });
+
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.textContent = "Delete";
+        deleteButton.classList.add("delete-button");
+
+        deleteButton.addEventListener("click", function() {
+            deleteTask(task.id);
+        });
+
+        buttonGroup.appendChild(completeButton);
+        buttonGroup.appendChild(deleteButton);
+
+        listItem.appendChild(taskText);
+        listItem.appendChild(buttonGroup);
 
         taskList.appendChild(listItem);
     });
+}
+
+function toggleTask(id) {
+    tasks = tasks.map(function(task) {
+        if (task.id === id) {
+            return {
+                ...task,
+                completed: !task.completed
+            };
+        }
+
+        return task;
+    });
+
+    renderTasks();
+}
+
+function deleteTask(id) {
+    tasks = tasks.filter(function(task) {
+        return task.id !== id;
+    });
+
+    renderTasks();
 }
